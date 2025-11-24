@@ -1,0 +1,62 @@
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - ROC Movies</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0e0e0e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e50914;
+        }
+
+        h1 {
+            margin: 0;
+            color: #e50914;
+        }
+
+        main {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: #e50914;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #b00610;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+
+<header th:fragment="header">
+    <h1>🎬 ROC Movies</h1>
+    <p>Bienvenue dans ton application de gestion de films</p>
+</header>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments :: head"></head>
+<body>
+
+    <header th:replace="fragments :: header"></header>
+
+    <main>
+        <h2>Accueil</h2>
+        <p>Choisis une action :</p>
+
+        <a href="/movie" class="btn">Voir tous les films</a>
+        <a href="/add-movie" class="btn">Ajouter un film</a>
+        <a href="/about" class="btn">À propos</a>
+        <form method="GET" action="http://localhost:9090/rocmovies/home">
+        <select name="style">
+            <option value="">Tous les styles</option>
+            <option th:each="style: ${movie_styles}" th:text="${style}"  th:value="${style}">
+            </option>
+        </select>
+        <input type="submit">
+        </form>
+        <ul>
+            <li th:each="movie: ${movies}" th:text="${movie.title}" />
+        </ul>
+    </main>
+
+</body>
+</html>
