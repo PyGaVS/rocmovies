@@ -57,6 +57,7 @@ public class DataSeeder implements CommandLineRunner {
                 "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Die_Hard_%281988_film%29_poster.jpg/250px-Die_Hard_%281988_film%29_poster.jpg")); 
         }
 
-        customerRepo.save(new Customer("martin"));
+        customerRepo.save(new Customer("Martin"));
+        customerRepo.save(new Customer("Jules"));
     }
 }
