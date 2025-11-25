@@ -3,8 +3,10 @@ package com.ndduroc.rocmovies.Config;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.ndduroc.rocmovies.Services.Interfaces.CustomerRepository;
 import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
 import com.ndduroc.rocmovies.Services.Interfaces.StyleRepository;
+import com.ndduroc.rocmovies.entity.Customer;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.entity.Style;
 
@@ -15,9 +17,12 @@ public class DataSeeder implements CommandLineRunner {
 
     private final StyleRepository styleRepo;
 
-    public DataSeeder(MovieRepository repo, StyleRepository styleRepo) {
+    private final CustomerRepository customerRepo;
+
+    public DataSeeder(MovieRepository repo, StyleRepository styleRepo, CustomerRepository customerRepo) {
         this.repo = repo;
         this.styleRepo = styleRepo;
+        this.customerRepo = customerRepo;
     }
 
     @Override
@@ -51,5 +56,7 @@ public class DataSeeder implements CommandLineRunner {
             repo.save(new Movie("Die Hard", action, 1988,  
                 "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Die_Hard_%281988_film%29_poster.jpg/250px-Die_Hard_%281988_film%29_poster.jpg")); 
         }
+
+        customerRepo.save(new Customer("martin"));
     }
 }

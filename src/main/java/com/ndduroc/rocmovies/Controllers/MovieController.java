@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.MovieStyles;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +26,7 @@ public class MovieController {
     @Autowired
     private IMovieService service;
 
-    public MovieController(){
-        //this.service = new MovieService();
-    }
+    public MovieController(){}
 
     @GetMapping("/{id}")
     public Movie getOneMovie(@PathVariable int id) {
