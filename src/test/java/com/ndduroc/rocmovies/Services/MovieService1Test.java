@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ndduroc.rocmovies.Repositories.MovieRepository;
+import com.ndduroc.rocmovies.Repositories.MovieRepositoryy;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.entity.MovieStyles;
 
@@ -21,7 +21,7 @@ public class MovieService1Test {
 
     // Bouchon
     @Mock
-    private MovieRepository movieRepository;
+    private MovieRepositoryy movieRepository;
 
     @InjectMocks
     private MovieService1 movieService;
@@ -29,11 +29,11 @@ public class MovieService1Test {
     @BeforeEach
     public void setupAll(){
         List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie(1,"Test", MovieStyles.ACTION, 2001));
-        movies.add(new Movie(2,"Test", MovieStyles.ACTION, 2018));
-        movies.add(new Movie(3,"Test", MovieStyles.ACTION, 2020));
-        movies.add(new Movie(4,"Test", MovieStyles.ACTION, 20));
-        movies.add(new Movie(5,"Test", MovieStyles.ACTION, 2009));
+        movies.add(new Movie(1,"Test", MovieStyles.ACTION, 2001, ""));
+        movies.add(new Movie(2,"Test", MovieStyles.ACTION, 2018, ""));
+        movies.add(new Movie(3,"Test", MovieStyles.ACTION, 2020, ""));
+        movies.add(new Movie(4,"Test", MovieStyles.ACTION, 20, ""));
+        movies.add(new Movie(5,"Test", MovieStyles.ACTION, 2009, ""));
         when(movieRepository.getListMovies()).thenReturn(movies);
     }
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments :: head"></head>
+<body>
+
+    <header th:replace="fragments :: header"></header>
+
+    <main>
+        <h2>Détails du film</h2>
+
+        <div class="movie-details" th:if="${movie != null}">
+            <h3 th:text="${movie.title}">Titre du film</h3>
+            <p><strong>Style :</strong> <span th:text="${movie.style}">Style du film</span></p>
+            <p><strong>Année de production :</strong> <span th:text="${movie.productionYear}">Année</span></p>
+
+            <a href="/rocmovies/home" class="btn">Retour à la liste des films</a>
+            <a class="btn">Modifier le film</a>
+            <a class="btn btn-danger">Supprimer le film</a>
+        </div>
+
+        <div th:if="${movie == null}">
+            <p>Film introuvable.</p>
+            <a href="/movie" class="btn">Retour à la liste des films</a>
+        </div>
+    </main>
+
+</body>

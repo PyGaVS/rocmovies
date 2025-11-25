@@ -1,16 +1,17 @@
 package com.ndduroc.rocmovies.Controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.entity.Movie;
@@ -25,15 +26,28 @@ public class HomeController {
 
     @RequestMapping(value={"", "/", "home"})
     public String displayHomePage(Model model, @RequestParam Optional<MovieStyles> style) {
-        List<Movie> movies = new ArrayList<Movie>(); 
+        List<Movie> movies; 
         if(style.isPresent()){
             movies = service.getMoviesByStyle(style.get());
         } else {
             movies = service.getListMovies();
         }
         model.addAttribute("movies", movies);
-        model.addAttribute("movie_styles", Arrays.asList("SF", "ACTION", "THRILLER"));
+        model.addAttribute("movie_styles", Arrays.asList("SF", "ACTION", "THRILLER", "DRAME"));
         return "home.html";
+    }
+
+    @RequestMapping(value={"", "/{id}"})
+    public String displayMovieDetailsPage(Model model, @PathVariable int id) {
+        Optional<Movie> res = service.getMovieById(id);
+        Movie movie;
+        if(res.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect");
+        } else {
+            movie = res.get();
+        }
+        model.addAttribute("movie", movie);
+        return "movieDetails.html";
     }
     
 }

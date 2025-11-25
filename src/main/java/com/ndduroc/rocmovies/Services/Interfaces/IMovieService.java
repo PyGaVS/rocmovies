@@ -10,7 +10,7 @@ public interface IMovieService {
 
     List<Movie> getListMovies();
 
-    Optional<Movie> getMovieById(long id);
+    Optional<Movie> getMovieById(int id);
 
     List<Movie> getMoviesByStyle(MovieStyles style);
 
