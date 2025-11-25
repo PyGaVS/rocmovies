@@ -12,18 +12,18 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="styles")
-public class Style {
-    public Style(int id, String name) {
+@Table(name="customers")
+public class Customer {
+    public Customer(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Style(String name) {
+    public Customer(String name) {
         this.name = name;
     }
 
-    public Style() {
+    public Customer() {
     }
 
     @Id
@@ -33,8 +33,8 @@ public class Style {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "style", cascade= CascadeType.ALL)
-    private List<Movie> movies;
+    @OneToMany(mappedBy = "customer", cascade= CascadeType.ALL)
+    private List<Borrow> borrows;
 
     public String getName() {
         return name;
