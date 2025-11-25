@@ -25,7 +25,7 @@
                 <div class="movie-card" >
                     <img th:src="${movie.image}" th:alt="${movie.title}" />
                     <p th:text="${movie.title}" />
-                    <p th:text="${movie.style}" />
+                    <p th:text="${movie.style.name}" />
                     <p th:text="${movie.productionYear}" />
                 </div>
             </a>

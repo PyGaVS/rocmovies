@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.MovieStyles;
+import com.ndduroc.rocmovies.entity.Style;
 
 public interface IMovieService {
 
@@ -12,10 +12,11 @@ public interface IMovieService {
 
     Optional<Movie> getMovieById(int id);
 
-    List<Movie> getMoviesByStyle(MovieStyles style);
+    List<Movie> getMoviesByStyleId(int style);
 
     List<Movie> getMoviesBetween(int oldestYear, int latestYear);
 
-    Movie addMovie(Movie movie);
+    List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style);
 
+    Movie addMovie(Movie movie);
 }

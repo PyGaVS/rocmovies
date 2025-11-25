@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.MovieStyles;
+import com.ndduroc.rocmovies.entity.Style;
 
 @Service
 @Primary
-public class MovieService1 implements IMovieService {
+public class MovieService implements IMovieService {
 
     @Autowired 
     private MovieRepository repo;
@@ -35,8 +35,8 @@ public class MovieService1 implements IMovieService {
     }
 
     @Override
-    public List<Movie> getMoviesByStyle(MovieStyles style){
-        return repo.findAll().stream().filter(m -> m.getStyle() == style).collect(Collectors.toList());
+    public List<Movie> getMoviesByStyleId(int style){
+        return repo.findByStyleId(style);
     }
 
     @Override
@@ -44,7 +44,12 @@ public class MovieService1 implements IMovieService {
         return repo.findAll().stream().filter(m -> m.getProductionYear() >= oldestYear && m.getProductionYear() <= latestYear).collect(Collectors.toList());
     }
 
-    public MovieService1(){
+    @Override
+    public List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style){
+        return repo.findByStyleId(style).stream().filter(m -> m.getProductionYear() >= oldestYear && m.getProductionYear() <= latestYear).collect(Collectors.toList());
+    }
+
+    public MovieService(){
         System.out.println("Création du service MovieService");
     }
 

@@ -12,29 +12,30 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ndduroc.rocmovies.Repositories.MovieRepositoryy;
+import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.MovieStyles;
+import com.ndduroc.rocmovies.entity.Style;
 
 @ExtendWith(MockitoExtension.class)
 public class MovieService1Test {
 
     // Bouchon
     @Mock
-    private MovieRepositoryy movieRepository;
+    private MovieRepository movieRepository;
 
     @InjectMocks
-    private MovieService1 movieService;
+    private MovieService movieService;
 
     @BeforeEach
     public void setupAll(){
         List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie(1,"Test", MovieStyles.ACTION, 2001, ""));
-        movies.add(new Movie(2,"Test", MovieStyles.ACTION, 2018, ""));
-        movies.add(new Movie(3,"Test", MovieStyles.ACTION, 2020, ""));
-        movies.add(new Movie(4,"Test", MovieStyles.ACTION, 20, ""));
-        movies.add(new Movie(5,"Test", MovieStyles.ACTION, 2009, ""));
-        when(movieRepository.getListMovies()).thenReturn(movies);
+        Style style = new Style("ACTION");
+        movies.add(new Movie(1,"Test", style, 2001, ""));
+        movies.add(new Movie(2,"Test", style, 2018, ""));
+        movies.add(new Movie(3,"Test", style, 2020, ""));
+        movies.add(new Movie(4,"Test", style, 20, ""));
+        movies.add(new Movie(5,"Test", style, 2009, ""));
+        when(movieRepository.findAll()).thenReturn(movies);
     }
 
     @Test

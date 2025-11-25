@@ -5,21 +5,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="movies")
 public class Movie {
 
-    public Movie(int idMovie, String title, MovieStyles style, int productionYear, String image) {
+    public Movie(int idMovie, String title, Style style, int productionYear, String image) {
+        this(title, style , productionYear, image);
         this.idMovie = idMovie;
-        this.title = title;
-        this.style = style;
-        this.productionYear = productionYear;
-        this.image = image;
     }
 
-    public Movie(String title, MovieStyles style, int productionYear, String image) {
+    public Movie(String title, Style style, int productionYear, String image) {
         this.title = title;
         this.style = style;
         this.productionYear = productionYear;
@@ -36,8 +35,9 @@ public class Movie {
     @Column
     private String title;
 
-    @Column
-    private MovieStyles style;
+    @ManyToOne
+    @JoinColumn(name = "style_id", nullable=false)
+    private Style style;
     
     @Column
     private Integer productionYear;
@@ -51,14 +51,14 @@ public class Movie {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public MovieStyles getStyle() {
+    
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(MovieStyles style) {
+    public void setStyle(Style style) {
         this.style = style;
-    }
+    } 
 
     public int getProductionYear() {
         return productionYear;

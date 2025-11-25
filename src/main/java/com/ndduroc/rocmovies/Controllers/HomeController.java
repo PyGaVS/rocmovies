@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.plaf.multi.MultiInternalFrameUI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -25,10 +27,10 @@ public class HomeController {
     private IMovieService service;
 
     @RequestMapping(value={"", "/", "home"})
-    public String displayHomePage(Model model, @RequestParam Optional<MovieStyles> style) {
+    public String displayHomePage(Model model, @RequestParam Optional<Integer> style) {
         List<Movie> movies; 
         if(style.isPresent()){
-            movies = service.getMoviesByStyle(style.get());
+            movies = service.getMoviesByStyleId(style.get());
         } else {
             movies = service.getListMovies();
         }

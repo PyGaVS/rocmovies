@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.ndduroc.rocmovies.Services.MovieService2;
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.entity.MovieStyles;
@@ -46,9 +44,9 @@ public class MovieController {
     }
 
     @GetMapping("")
-    public List<Movie> getMoviesByStyle(@RequestParam Optional<MovieStyles> style, Optional<Integer> old, Optional<Integer> late ){  
+    public List<Movie> getMoviesByStyle(@RequestParam Optional<Integer> style, Optional<Integer> old, Optional<Integer> late ){  
         if(style.isPresent()){
-            return service.getMoviesByStyle(style.get());
+            return service.getMoviesByStyleId(style.get());
         } else if(old.isPresent() && late.isPresent()) {
             return service.getMoviesBetween(old.get(), late.get());
         } else {
