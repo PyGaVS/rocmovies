@@ -36,6 +36,10 @@ public class Style {
     @OneToMany(mappedBy = "style", cascade= CascadeType.ALL)
     private List<Movie> movies;
 
+    public Integer getId() {
+        return id;
+    }
+    
     public String getName() {
         return name;
     }

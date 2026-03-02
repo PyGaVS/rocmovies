@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.ndduroc.rocmovies.Services.Interfaces.CustomerRepository;
 import com.ndduroc.rocmovies.Services.Interfaces.ICustomerService;
 import com.ndduroc.rocmovies.entity.Customer;
-import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.Services.Interfaces.CustomerRepository;
 
 @Service
 @Primary

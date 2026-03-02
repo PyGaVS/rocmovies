@@ -10,7 +10,7 @@
 
         <div class="movie-details" th:if="${movie != null}">
             <h3 th:text="${movie.title}">Titre du film</h3>
-            <p><strong>Style :</strong> <span th:text="${movie.style}">Style du film</span></p>
+            <p><strong>Style :</strong> <span th:text="${#strings.capitalize(movie.style.name.toLowerCase())}">Style du film</span></p>
             <p><strong>Année de production :</strong> <span th:text="${movie.productionYear}">Année</span></p>
 
             <a href="/rocmovies/home" class="btn">Retour à la liste des films</a>

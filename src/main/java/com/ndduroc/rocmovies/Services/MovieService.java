@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
+import com.ndduroc.rocmovies.Services.Interfaces.StyleRepository;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.entity.Style;
 
@@ -17,9 +18,12 @@ import com.ndduroc.rocmovies.entity.Style;
 @Primary
 public class MovieService implements IMovieService {
 
-    @Autowired 
+    @Autowired
     private MovieRepository repo;
-    
+
+    @Autowired
+    private StyleRepository styleRepo;
+
     /** 
      * Liste complète de tous les films
      */
@@ -57,5 +61,10 @@ public class MovieService implements IMovieService {
     public Movie addMovie(Movie movie) {
 
         return repo.save(movie);
+    }
+
+    @Override
+    public List<Style> getStyles() {
+        return styleRepo.findAll();
     }
 }

@@ -19,4 +19,6 @@ public interface IMovieService {
     List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style);
 
     Movie addMovie(Movie movie);
+
+    List<Style> getStyles();
 }

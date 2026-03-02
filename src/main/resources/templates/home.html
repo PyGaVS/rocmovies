@@ -6,27 +6,33 @@
     <header th:replace="~{fragments :: header}"></header>
 
     <main>
-        <h2>Accueil</h2>
-        <p>Choisis une action :</p>
-
-        <a href="/movie" class="btn">Voir tous les films</a>
-        <a href="/add-movie" class="btn">Ajouter un film</a>
-        <a href="/about" class="btn">À propos</a>
-        <form method="GET" action="http://localhost:9090/rocmovies/home">
-        <select name="style">
-            <option value="">Tous les styles</option>
-            <option th:each="style: ${movie_styles}" th:text="${style}"  th:value="${style}">
-            </option>
-        </select>
-        <input type="submit">
-        </form>
+        <div class="action-bar">
+            <h2>Accueil</h2>
+            
+            <form method="GET" action="http://localhost:9090/rocmovies/home" class="filter-group">
+                <select name="style">
+                    <option value="">Tous les styles</option>
+                    <option th:each="style: ${movie_styles}" th:text="${style.getName()}" th:value="${style.getId()}"></option>
+                </select>
+                <button type="submit" class="btn-submit">Filtrer</button>
+            </form>
+        </div>
         <div class="flex-row">
             <a class="movie-button" th:href="@{/{id}(id=${movie.idMovie})}" th:each="movie: ${movies}">
-                <div class="movie-card" >
-                    <img th:src="${movie.image}" th:alt="${movie.title}" />
-                    <p th:text="${movie.title}" />
-                    <p th:text="${movie.style.name}" />
-                    <p th:text="${movie.productionYear}" />
+                <div class="movie-card">
+                    <img th:if="${movie.image != null and movie.image != ''}" 
+                         th:src="${movie.image}" 
+                         th:alt="${movie.title}" />
+
+                    <div th:unless="${movie.image != null and movie.image != ''}" class="no-pic">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                
+                    <div class="movie-info">
+                        <p class="movie-genre" th:text="${movie.style.name}"></p>
+                        <p class="movie-title" th:text="${movie.title}"></p>
+                        <p class="movie-meta" th:text="${movie.productionYear}"></p>
+                    </div>
                 </div>
             </a>
         </div>

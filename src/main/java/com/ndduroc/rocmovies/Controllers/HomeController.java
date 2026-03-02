@@ -35,7 +35,7 @@ public class HomeController {
             movies = service.getListMovies();
         }
         model.addAttribute("movies", movies);
-        model.addAttribute("movie_styles", Arrays.asList("SF", "ACTION", "THRILLER", "DRAME"));
+        model.addAttribute("movie_styles", service.getStyles());
         return "home.html";
     }
 

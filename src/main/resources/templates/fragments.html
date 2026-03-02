@@ -2,10 +2,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - ROC Movies</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}"
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 </head>
 
 <header th:fragment="header">
-    <h1>🎬 ROC Movies</h1>
-    <p>Bienvenue dans ton application de gestion de films</p>
+    <div class="header-container">
+        <h1>🎬 ROC Movies</h1>
+        <nav>
+            <a href="/movie" class="nav-link">Catalogue</a>
+            <a href="/add-movie" class="nav-link">Ajouter</a>
+            <a href="/about" class="nav-link">Infos</a>
+        </nav>
+    </div>
 </header>

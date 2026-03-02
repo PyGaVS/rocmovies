@@ -11,13 +11,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.entity.Style;
 
 @ExtendWith(MockitoExtension.class)
-public class MovieService1Test {
+@SpringBootTest
+@ActiveProfiles("test")
+public class MovieServiceTest {
 
     // Bouchon
     @Mock
@@ -61,6 +65,6 @@ public class MovieService1Test {
 
     // @Test
     // void testGetMoviesByStyle() {
-    
+
     // }
 }
