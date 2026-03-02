@@ -37,20 +37,21 @@ public class MovieService1Test {
         movies.add(new Movie(5,"Test", style, 2009, ""));
         when(movieRepository.findAll()).thenReturn(movies);
     }
-
-    @Test
-    void testAddMovie() {
-    }
+    
+    // @Test
+    // void testAddMovie() {
+    // }
 
     @Test
     void testGetListMovies() {
-
+        List<Movie> result = movieService.getListMovies();
+        assertEquals(5, result.size());
     }
 
-    @Test
-    void testGetMovieById() {
+    // @Test
+    // void testGetMovieById() {
 
-    }
+    // }
 
     @Test
     public void testGetMoviesBetween() {
@@ -58,8 +59,8 @@ public class MovieService1Test {
         assertEquals(result, 2);
     }
 
-    @Test
-    void testGetMoviesByStyle() {
-
-    }
+    // @Test
+    // void testGetMoviesByStyle() {
+    
+    // }
 }
