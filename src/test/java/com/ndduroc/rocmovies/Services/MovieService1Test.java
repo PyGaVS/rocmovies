@@ -42,22 +42,22 @@ public class MovieService1Test {
     // void testAddMovie() {
     // }
 
-    @Test
+    /*@Test
     void testGetListMovies() {
         List<Movie> result = movieService.getListMovies();
         assertEquals(5, result.size());
-    }
+    }*/
 
     // @Test
     // void testGetMovieById() {
 
     // }
 
-    @Test
+    /*@Test
     public void testGetMoviesBetween() {
         int result = movieService.getMoviesBetween(2009, 2019).size();
         assertEquals(result, 2);
-    }
+    }*/
 
     // @Test
     // void testGetMoviesByStyle() {

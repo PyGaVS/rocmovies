@@ -4,19 +4,20 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.Style;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface IMovieService {
 
-    List<Movie> getListMovies();
+    Flux<Movie> getListMovies();
 
-    Optional<Movie> getMovieById(int id);
+    Mono<Movie> getMovieById(int id);
 
-    List<Movie> getMoviesByStyleId(int style);
+    Flux<Movie> getMoviesByStyleId(int style);
 
-    List<Movie> getMoviesBetween(int oldestYear, int latestYear);
+    Flux<Movie> getMoviesBetween(int oldestYear, int latestYear);
 
-    List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style);
+    // List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style);
 
-    Movie addMovie(Movie movie);
+    // Movie addMovie(Movie movie);
 }

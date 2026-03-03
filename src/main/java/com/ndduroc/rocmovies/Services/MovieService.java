@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.Services.Interfaces.MovieRepository;
 import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.Style;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 @Primary
@@ -24,38 +25,38 @@ public class MovieService implements IMovieService {
      * Liste complète de tous les films
      */
     @Override
-    public List<Movie> getListMovies(){
+    public Flux<Movie> getListMovies(){
         return repo.findAll();
     }
 
 
     @Override
-    public Optional<Movie> getMovieById(int id){
+    public Mono<Movie> getMovieById(int id){
         return repo.findById(id);
     }
 
     @Override
-    public List<Movie> getMoviesByStyleId(int style){
+    public Flux<Movie> getMoviesByStyleId(int style){
         return repo.findByStyleId(style);
     }
 
     @Override
-    public List<Movie> getMoviesBetween(int oldestYear, int latestYear){
-        return repo.findAll().stream().filter(m -> m.getProductionYear() >= oldestYear && m.getProductionYear() <= latestYear).collect(Collectors.toList());
+    public Flux<Movie> getMoviesBetween(int oldestYear, int latestYear){
+        return repo.findByProductionYearBetween(oldestYear, latestYear);
     }
 
-    @Override
+    /* @Override
     public List<Movie> getMoviesByStyleBetween(int oldestYear, int latestYear, int style){
         return repo.findByStyleId(style).stream().filter(m -> m.getProductionYear() >= oldestYear && m.getProductionYear() <= latestYear).collect(Collectors.toList());
-    }
+    } */
 
     public MovieService(){
         System.out.println("Création du service MovieService");
     }
 
-    @Override
+    /*@Override
     public Movie addMovie(Movie movie) {
 
         return repo.save(movie);
-    }
+    }*/
 }
