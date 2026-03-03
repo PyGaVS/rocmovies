@@ -23,28 +23,27 @@
             <button type="submit" class="btn-submit">Filtrer</button>
         </form>
     </div>
-
     <div class="flex-row">
         <a class="movie-button"
            th:each="movie : ${movies}"
            th:href="@{/movie-details/{id}(id=${movie.idMovie})}">
-
+    
             <div class="movie-card">
-
+            
                 <img th:if="${movie.image != null and movie.image != ''}"
                      th:src="${movie.image}"
                      th:alt="${movie.title}" />
-
+            
                 <div th:unless="${movie.image != null and movie.image != ''}" class="no-pic">
                     <i class="fa-solid fa-image"></i>
                 </div>
-
+            
                 <div class="movie-info">
                     <p class="movie-genre" th:text="${movie.style.name}"></p>
                     <p class="movie-title" th:text="${movie.title}"></p>
                     <p class="movie-meta" th:text="${movie.productionYear}"></p>
                 </div>
-
+            
             </div>
         </a>
     </div>

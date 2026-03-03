@@ -115,6 +115,22 @@ footer {
 }
 
 /* --- Movie Card --- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(1000px);
+    /*rotate: 1080deg;
+    scale: 3; */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    /*rotate: 0deg;
+    scale: 1; */
+  }
+}
+
+
 .movie-card {
   width: 250px;
   margin-bottom: 0.5rem;
@@ -127,6 +143,7 @@ footer {
   flex-direction: column;
   height: 100%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .movie-card:hover {
