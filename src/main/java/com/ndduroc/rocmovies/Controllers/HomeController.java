@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.swing.plaf.multi.MultiInternalFrameUI;
 
+import com.ndduroc.rocmovies.Services.Interfaces.StyleService;
 import com.ndduroc.rocmovies.entity.Movie;
 import com.ndduroc.rocmovies.utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,22 @@ public class HomeController {
 
     @Autowired
     private IMovieService service;
+    @Autowired
+    private StyleService styleService;
 
     @RequestMapping(value = {"", "/", "home"})
-    public String displayHomePage(Model model, @RequestParam Optional<Integer> style) {
+    public Mono<String> displayHomePage(Model model, @RequestParam Optional<Integer> style) {
         Flux<Movie> movies = style.isPresent() ? service.getMoviesByStyleId(style.get()) : service.getListMovies();
-        model.addAttribute("movies", new ReactiveDataDriverContextVariable(movies, 1));
-        model.addAttribute("movie_styles", utils.getStylesFromMovies(movies));
-        return "home.html";
+        Flux<Style> styles = styleService.getAllStyles();
+        Mono<List<Style>> stylesListMono = styles.collectList();
+
+        return stylesListMono.map(styleList -> {
+            model.addAttribute("movies", new ReactiveDataDriverContextVariable(movies, 1));
+            model.addAttribute("movie_styles", styleList);
+            return "home.html";
+        });
     }
+
 
     @RequestMapping("/movie-details/{id}")
     public Mono<String> displayMovieDetailsPage(Model model, @PathVariable int id) {

@@ -15,8 +15,8 @@
 
                 <!-- style est une String -->
                 <option th:each="style : ${movie_styles}"
-                        th:text="${style}"
-                        th:value="${style}">
+                        th:text="${style.name}"
+                        th:value="${style.id}">
                 </option>
             </select>
 
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="movie-info">
-                    <p class="movie-genre" th:text="${movie.style}"></p>
+                    <p class="movie-genre" th:text="${movie.style.name}"></p>
                     <p class="movie-title" th:text="${movie.title}"></p>
                     <p class="movie-meta" th:text="${movie.productionYear}"></p>
                 </div>
