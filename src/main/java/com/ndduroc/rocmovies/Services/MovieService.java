@@ -25,7 +25,7 @@ public class MovieService implements IMovieService {
     @Autowired
     private StyleRepository styleRepo;
 
-    /** 
+    /**
      * Liste complète de tous les films
      */
     @Override
@@ -41,22 +41,12 @@ public class MovieService implements IMovieService {
 
     @Override
     public Mono<Movie> getMovieById(int id){
-        return repo.findById(id).flatMap(movie -> 
-            styleRepo.findById(movie.getStyleId()).map(style -> {
-                movie.setStyle(style);
-                return movie;
-            })
-        );
+        return repo.findById(id).delayElement(Duration.ofSeconds(3));
     }
 
     @Override
-    public Flux<Movie> getMoviesByStyleId(int styleId){
-        return repo.findByStyleId(styleId).flatMap(movie -> 
-            styleRepo.findById(movie.getStyleId()).map(style -> {
-                movie.setStyle(style);
-                return movie;
-            })
-        );
+    public Flux<Movie> getMoviesByStyleId(int style){
+        return repo.findByStyleId(style);
     }
 
     @Override

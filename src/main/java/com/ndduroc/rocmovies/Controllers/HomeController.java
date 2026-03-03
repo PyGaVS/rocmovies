@@ -51,11 +51,10 @@ public class HomeController {
 
 
     @RequestMapping("/movie-details/{id}")
-    public Mono<String> displayMovieDetailsPage(Model model, @PathVariable int id) {
-        return service.getMovieById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect"))).map(movie -> {
-            model.addAttribute("movie", movie);
-            return "movieDetails.html";
-        });
+    public String displayMovieDetailsPage(Model model, @PathVariable int id) {
+        Mono<Movie> movieMono = service.getMovieById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect")));
+        model.addAttribute("movie", movieMono);
+        return "movieDetails.html";
     }
 
 }
