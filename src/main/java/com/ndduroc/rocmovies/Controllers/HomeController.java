@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.swing.plaf.multi.MultiInternalFrameUI;
 
+import com.ndduroc.rocmovies.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
+import org.thymeleaf.spring6.context.webflux.ReactiveDataDriverContextVariable;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -25,22 +28,11 @@ public class HomeController {
     private IMovieService service;
 
     @RequestMapping(value = {"", "/", "home"})
-    public Mono<String> displayHomePage(Model model, @RequestParam Optional<Integer> style) {
-        if (style.isPresent()) {
-            return service.getMoviesByStyleId(style.get())
-                .collectList()
-                .map(movies -> {
-                    model.addAttribute("movies", movies);
-                    return "home.html";
-                });
-        }
-        return service.getListMovies()
-            .collectList()
-            .map(movies -> {
-                model.addAttribute("movies", movies);
-                return "home.html";
-            }
-        );
+    public String displayHomePage(Model model, @RequestParam Optional<Integer> style) {
+        Flux<Movie> movies = style.isPresent() ? service.getMoviesByStyleId(style.get()) : service.getListMovies();
+        model.addAttribute("movies", new ReactiveDataDriverContextVariable(movies, 1));
+        model.addAttribute("movie_styles", Arrays.asList("SF", "ACTION", "THRILLER", "DRAME"));
+        return "home.html";
     }
 
     @RequestMapping("/movie-details/{id}")

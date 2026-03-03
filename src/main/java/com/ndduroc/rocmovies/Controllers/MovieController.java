@@ -28,7 +28,8 @@ public class MovieController {
     @Autowired
     private IMovieService service;
 
-    public MovieController(){}
+    public MovieController() {
+    }
 
     @GetMapping("/{id}")
     public Mono<Movie> getOneMovie(@PathVariable int id) {
@@ -36,15 +37,22 @@ public class MovieController {
     }
 
     @GetMapping("")
-    public Flux<Movie> getMoviesByStyle(@RequestParam Optional<Integer> style, Optional<Integer> old, Optional<Integer> late ){
-        if(style.isPresent()){
+    public Flux<Movie> getMoviesByStyle(
+            @RequestParam Optional<Integer> style,
+            @RequestParam Optional<Integer> old,
+            @RequestParam Optional<Integer> late) {
+
+        if (style.isPresent()) {
             return service.getMoviesByStyleId(style.get());
-        } else if(old.isPresent() && late.isPresent()) {
-            return service.getMoviesBetween(old.get(), late.get());
-        } else {
-            return service.getListMovies();
         }
+
+        if (old.isPresent() && late.isPresent()) {
+            return service.getMoviesBetween(old.get(), late.get());
+        }
+
+        return service.getListMovies();
     }
+
 
     /*@PostMapping("")
     public Movie createMovie(@RequestBody Movie movie) {

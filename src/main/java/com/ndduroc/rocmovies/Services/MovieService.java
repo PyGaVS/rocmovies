@@ -13,6 +13,8 @@ import com.ndduroc.rocmovies.entity.Style;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Service
 @Primary
 public class MovieService implements IMovieService {
@@ -28,7 +30,7 @@ public class MovieService implements IMovieService {
      */
     @Override
     public Flux<Movie> getListMovies() {
-        return repo.findAll().flatMap(movie -> 
+        return repo.findAll().delayElements(Duration.ofMillis(200)).flatMap(movie ->
             styleRepo.findById(movie.getStyleId()).map(style -> {
                 movie.setStyle(style);
                 return movie;
