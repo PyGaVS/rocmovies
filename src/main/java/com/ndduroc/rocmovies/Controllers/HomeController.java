@@ -1,5 +1,6 @@
 package com.ndduroc.rocmovies.Controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
+import com.ndduroc.rocmovies.entity.Style;
+import com.ndduroc.rocmovies.utils;
+
 import reactor.core.publisher.Mono;
 
 
@@ -26,11 +31,13 @@ public class HomeController {
 
     @RequestMapping(value = {"", "/", "home"})
     public Mono<String> displayHomePage(Model model, @RequestParam Optional<Integer> style) {
+
         if (style.isPresent()) {
             return service.getMoviesByStyleId(style.get())
                 .collectList()
                 .map(movies -> {
                     model.addAttribute("movies", movies);
+                    model.addAttribute("styles", utils.getStylesFromMovies(movies));
                     return "home.html";
                 });
         }
@@ -38,9 +45,9 @@ public class HomeController {
             .collectList()
             .map(movies -> {
                 model.addAttribute("movies", movies);
+                model.addAttribute("styles", utils.getStylesFromMovies(movies));
                 return "home.html";
-            }
-        );
+            });
     }
 
     @RequestMapping("/movie-details/{id}")

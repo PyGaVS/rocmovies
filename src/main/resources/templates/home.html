@@ -12,7 +12,7 @@
             <form method="GET" action="http://localhost:9090/rocmovies/home" class="filter-group">
                 <select name="style">
                     <option value="">Tous les styles</option>
-                    <option th:each="style: ${movie_styles}" th:text="${style.getName()}" th:value="${style.getId()}"></option>
+                    <option th:each="style: ${styles}" th:text="${style.getName()}" th:value="${style.getId()}"></option>
                 </select>
                 <button type="submit" class="btn-submit">Filtrer</button>
             </form>

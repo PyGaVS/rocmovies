@@ -39,12 +39,22 @@ public class MovieService implements IMovieService {
 
     @Override
     public Mono<Movie> getMovieById(int id){
-        return repo.findById(id);
+        return repo.findById(id).flatMap(movie -> 
+            styleRepo.findById(movie.getStyleId()).map(style -> {
+                movie.setStyle(style);
+                return movie;
+            })
+        );
     }
 
     @Override
-    public Flux<Movie> getMoviesByStyleId(int style){
-        return repo.findByStyleId(style);
+    public Flux<Movie> getMoviesByStyleId(int styleId){
+        return repo.findByStyleId(styleId).flatMap(movie -> 
+            styleRepo.findById(movie.getStyleId()).map(style -> {
+                movie.setStyle(style);
+                return movie;
+            })
+        );
     }
 
     @Override
