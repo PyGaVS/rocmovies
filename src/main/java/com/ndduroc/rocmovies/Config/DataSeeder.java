@@ -71,7 +71,6 @@ public class DataSeeder implements CommandLineRunner {
             for (int i = 0; i < 100; i++) {
                 movies.add(MovieFactory.create(styles));
             }
-			styles.forEach(s -> System.out.println("Style: " + s.getId() + " - " + s.getName()));
             return repo.saveAll(movies);
         })
         .then()
