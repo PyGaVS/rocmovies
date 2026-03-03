@@ -14,8 +14,8 @@ public class MovieFactory {
     public static Movie create(List<Style> styles) {
         return new Movie(
             faker.movie().name(),
-            styles.get(faker.number().numberBetween(0, styles.size())),
-            faker.number().numberBetween(1970, 2025),
+            faker.number().numberBetween(1, styles.size()),
+            faker.number().numberBetween(1950, 2025),
             ""
         );
     }

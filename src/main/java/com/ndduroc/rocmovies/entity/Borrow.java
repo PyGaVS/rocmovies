@@ -2,44 +2,52 @@ package com.ndduroc.rocmovies.entity;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
-@Table(name="borrows")
+@Table("borrows")
 public class Borrow {
-    public Borrow(int id, Date date, Customer customer) {
-        this(date, customer);
-        this.id = id;
-    }
 
-    public Borrow(Date date, Customer customer) {
-        this.date = date;
-    }
+    @Id
+    private Integer id;
+    private Date date;
+    private String name;
+    private int customerId;
+    private int movieId;
+
+    @Transient
+    private Customer customer;
+
+    @Transient
+    private Movie movie;
 
     public Borrow() {}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    public Borrow(Date date, int customerId, int movieId) {
+        this.date = date;
+        this.customerId = customerId;
+        this.movieId = movieId;
+    }
 
-    @Column
-    public Date date;
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    @Column
-    public String name;
-    
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable=false)
-    public Customer customer;
-    
-    @ManyToOne
-    @JoinColumn(name = "movie_id", nullable=false)
-    public Movie movie;
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public int getCustomerId() { return customerId; }
+    public void setCustomerId(int customerId) { this.customerId = customerId; }
+
+    public int getMovieId() { return movieId; }
+    public void setMovieId(int movieId) { this.movieId = movieId; }
+
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
+
+    public Movie getMovie() { return movie; }
+    public void setMovie(Movie movie) { this.movie = movie; }
 }

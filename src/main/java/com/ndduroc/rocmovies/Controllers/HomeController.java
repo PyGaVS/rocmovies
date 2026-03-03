@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
-import com.ndduroc.rocmovies.entity.Movie;
-import com.ndduroc.rocmovies.entity.MovieStyles;
+import reactor.core.publisher.Mono;
 
 
 @Controller
@@ -26,30 +24,31 @@ public class HomeController {
     @Autowired
     private IMovieService service;
 
-    @RequestMapping(value={"", "/", "home"})
-    public String displayHomePage(Model model, @RequestParam Optional<Integer> style) {
-        List<Movie> movies; 
-        if(style.isPresent()){
-            movies = service.getMoviesByStyleId(style.get());
-        } else {
-            movies = service.getListMovies();
+    @RequestMapping(value = {"", "/", "home"})
+    public Mono<String> displayHomePage(Model model, @RequestParam Optional<Integer> style) {
+        if (style.isPresent()) {
+            return service.getMoviesByStyleId(style.get())
+                .collectList()
+                .map(movies -> {
+                    model.addAttribute("movies", movies);
+                    return "home.html";
+                });
         }
-        model.addAttribute("movies", movies);
-        model.addAttribute("movie_styles", service.getStyles());
-        return "home.html";
+        return service.getListMovies()
+            .collectList()
+            .map(movies -> {
+                model.addAttribute("movies", movies);
+                return "home.html";
+            }
+        );
     }
 
-    @RequestMapping(value={"", "/{id}"})
-    public String displayMovieDetailsPage(Model model, @PathVariable int id) {
-        Optional<Movie> res = service.getMovieById(id);
-        Movie movie;
-        if(res.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect");
-        } else {
-            movie = res.get();
-        }
-        model.addAttribute("movie", movie);
-        return "movieDetails.html";
+    @RequestMapping("/movie-details/{id}")
+    public Mono<String> displayMovieDetailsPage(Model model, @PathVariable int id) {
+        return service.getMovieById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect"))).map(movie -> {
+            model.addAttribute("movie", movie);
+            return "movieDetails.html";
+        });
     }
-    
+
 }

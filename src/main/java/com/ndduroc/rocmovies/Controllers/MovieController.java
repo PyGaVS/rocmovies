@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import com.ndduroc.rocmovies.Services.Interfaces.IMovieService;
 import com.ndduroc.rocmovies.entity.Movie;
@@ -29,19 +31,12 @@ public class MovieController {
     public MovieController(){}
 
     @GetMapping("/{id}")
-    public Movie getOneMovie(@PathVariable int id) {
-        Optional<Movie> res = service.getMovieById(id);
-        if(res.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect");
-        } else {
-            return res.get();
-        }
-
-        
+    public Mono<Movie> getOneMovie(@PathVariable int id) {
+        return service.getMovieById(id).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "id incorrect")));
     }
 
     @GetMapping("")
-    public List<Movie> getMoviesByStyle(@RequestParam Optional<Integer> style, Optional<Integer> old, Optional<Integer> late ){  
+    public Flux<Movie> getMoviesByStyle(@RequestParam Optional<Integer> style, Optional<Integer> old, Optional<Integer> late ){
         if(style.isPresent()){
             return service.getMoviesByStyleId(style.get());
         } else if(old.isPresent() && late.isPresent()) {
@@ -51,8 +46,8 @@ public class MovieController {
         }
     }
 
-    @PostMapping("")
+    /*@PostMapping("")
     public Movie createMovie(@RequestBody Movie movie) {
         return service.addMovie(movie);
-    }
+    }*/
 }

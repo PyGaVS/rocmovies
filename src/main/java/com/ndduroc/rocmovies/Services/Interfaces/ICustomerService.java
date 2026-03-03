@@ -1,13 +1,13 @@
 package com.ndduroc.rocmovies.Services.Interfaces;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.ndduroc.rocmovies.entity.Customer;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface ICustomerService {
 
-    List<Customer> getCustomers();
+    Flux<Customer> getCustomers();
 
-    Optional<Customer> getCustomerById(int id);
+    Mono<Customer> getCustomerById(int id);
 }

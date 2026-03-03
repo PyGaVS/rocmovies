@@ -18,7 +18,7 @@
             </form>
         </div>
         <div class="flex-row">
-            <a class="movie-button" th:href="@{/{id}(id=${movie.idMovie})}" th:each="movie: ${movies}">
+            <a class="movie-button" th:href="@{/movie-details/{id}(id=${movie.idMovie})}" th:each="movie: ${movies}">
                 <div class="movie-card">
                     <img th:if="${movie.image != null and movie.image != ''}" 
                          th:src="${movie.image}" 
